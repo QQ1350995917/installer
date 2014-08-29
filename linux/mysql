@@ -1,0 +1,5 @@
+insert into mysql.user(Host,User,Password) values("localhost","phpadmin",password("adminphp"));
+
+flush privileges;
+
+GRANT ALL PRIVILEGES ON *.* TO 'phpadmin'@'localhost' IDENTIFIED BY 'adminphp' WITH GRANT OPTION;
