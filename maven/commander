@@ -1,0 +1,1 @@
+ mvn install:install-file -Dfile=httpcore-4.0-alpha6.jar -DgroupId=httpcomponents-httpcore -DartifactId=httpcore -Dversion=4.0-alpha6 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
