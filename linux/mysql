@@ -1,5 +1,19 @@
-insert into mysql.user(Host,User,Password) values("localhost","phpadmin",password("adminphp"));
-
+# 创建数据库
+drop database if exists db_guest default charset=utf8;
+# 创建用户
+insert into mysql.user(Host,User,Password) values("localhost","guest",password("guest"));
+# 使创建的用户生效
 flush privileges;
+# 对用户授权指定的数据库的表的所有权限
+GRANT ALL PRIVILEGES ON db_guest.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
+# 对用户授权指定的数据库的表的指定权限
+grant select,update on db_guest.* to 'guest'@'localhost'   identified by 'guest';
+# 撤销权限 Revoke privileges (columns) on what from user ;  privileges是要取消的权限，user是要被取消权限的用户名
+revoke all on *.* from guest@localhost ;
 
-GRANT ALL PRIVILEGES ON *.* TO 'phpadmin'@'localhost' IDENTIFIED BY 'adminphp' WITH GRANT OPTION;
+# 删除用户
+use mysql
+# Delete from user where user = "user_name" and host = "host_name" ;
+# flush privileges;
+# 更新用户密码
+# SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpass');
