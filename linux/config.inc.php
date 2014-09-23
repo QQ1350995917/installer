@@ -384,7 +384,7 @@ $cfg['AvailableCharsets'] = array(
     'koi8-r',
     'big5',
     'gb2312',
-    'utf-8', ,
+    'utf-8',
     'utf-7',
     'x-user-defined',
     'euc-jp',
@@ -488,7 +488,7 @@ $cfg['GD2Available']          = 'auto';     // Is GD >= 2 available? Set to yes/
 /**
 * SQL Parser Settings
 */
-]$cfg['SQP']['fmtType']      = 'html';       // 查询语句输出样式 (html, text, none)
+$cfg['SQP']['fmtType']      = 'html';       // 查询语句输出样式 (html, text, none)
 $cfg['SQP']['fmtInd']       = '1';             // 每行间距(floats ok)
 $cfg['SQP']['fmtIndUnit']   = 'em';         // 每行的缩进单位 (CSS Types - {em,px,pt})
 $cfg['SQP']['fmtColor']     = array(         // 语法颜色数据
