@@ -26,4 +26,5 @@ create database if not exists phpmyadmin default charset=utf8;
 insert into mysql.user(Host,User,Password) values("localhost","guest",password("guest"));
 flush privileges;
 GRANT ALL PRIVILEGES ON db_guest.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
 
