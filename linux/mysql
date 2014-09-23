@@ -16,11 +16,14 @@
 # 对用户授权指定的数据库的表的指定权限
 # grant select,update on db_guest.* to 'guest'@'localhost'   identified by 'guest';
 # 撤销权限 Revoke privileges (columns) on what from user ;  privileges是要取消的权限，user是要被取消权限的用户名
-# revoke all on *.* from guest@localhost ;
+# revoke all on phpmyadmin.* from guest@localhost ;
 
 # 设置phpadmin初始化用户 username:guest password:guest databasename:db_guest
 drop database if exists db_guest;
+drop database if exists phpmyadmin;
 create database if not exists db_guest default charset=utf8;
+create database if not exists phpmyadmin default charset=utf8;
 insert into mysql.user(Host,User,Password) values("localhost","guest",password("guest"));
 flush privileges;
 GRANT ALL PRIVILEGES ON db_guest.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
+
