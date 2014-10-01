@@ -196,3 +196,46 @@ sudo a2dissite test02
     使用git push前，gerrit不允许直接覆盖git代码库中的任何分支，而是将变更推送到另一个refspce中。
     git config remote.origin.push refs/heads/*:refs/for/*
     git push origin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[gerrit]
+        basePath = git
+        canonicalWebUrl = http://code.dingpw.com
+[database]
+        type = mysql
+        hostname = localhost
+        database = reviewdb
+        username = gerrit
+[index]
+        type = LUCENE
+[auth]
+        type = HTTP
+[sendemail]
+        smtpServer = smtp.exmail.qq.com
+        smtpServerPort = 465
+        smtpEncryption = SSL
+        smtpUser = code@dingpw.com
+        smtpPass = c123456
+        from = Code Review<code@dingpw.com>
+[container]
+        user = root
+        javaHome = /usr/local/bin/java/jdk1.8.0_11/jre
+[sshd]
+        listenAddress = *:29418
+[httpd]
+        listenUrl = http://*:8081/
+[cache]
+        directory = cache
