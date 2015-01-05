@@ -1,6 +1,6 @@
 sudo passwd root
 echo "alias vi='vim'">> /etc/profile
-echo "alias ll='ls -al'">> /etc/profile
+echo "alias ll='ls -l'">> /etc/profile
 source /etc/profile 
 mkdir bin
 cd bin/
