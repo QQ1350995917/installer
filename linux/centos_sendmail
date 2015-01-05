@@ -1,0 +1,34 @@
+cd /usr/local/bin/
+mkdir sendmail
+cd sendmail/
+yum install -y sendmail
+yum install -y sendmail-cf
+yum install -y saslauthd
+service saslauthd start
+#配置Senmail的SMTP认证
+vi /etc/mail/sendmail.mc
+dnl TRUST_AUTH_MECH(`EXTERNAL DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl 
+dnl define(`confAUTH_MECHANISMS', `EXTERNAL GSSAPI DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl 
+#将上面两行的dnl去掉。在sendmail文件中，dnl表示该行为注释行，是无效的，因此通过去除行首的dnl字符串可以开启相应的设置行。
+#设置Sendmail服务的网络访问权限
+vi /etc/mail/sendmail.mc
+DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')dnl
+#Sendmail的配置文件由m4来生成，m4工具在sendmail-cf包中。如果系统无法识别m4命令，说明sendmail-cf软件包没有安装。
+m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
+#需要重启Sendmail才能使配置文件生效。
+service sendmail restart
+#Sendmail邮件域名配置
+#配置sendmail使用合法的域名分两步，修改sendmail的配置文件和添加域名MX记录。
+#sendmail可以直接使用 “-r account@domain.com” 参数来以任意源地址发送邮件，但目前主流的邮箱都会将源地址和反向解析IP进行比较，
+#如果解析不到或是解析的IP不匹配，轻则将邮件直接归为SPAM，严重的就直接拒绝接收。
+#MX记录（Mail Exchanger Record）主要是接收邮件时使用，即当投递一封新邮件时，会查询收件人域名的MX记录，
+#然后通过MX记录得到的IP地址进行投递。同时邮件厂商在接收邮件的时候也会将源地址和MX记录进行比较，作为垃圾邮件的判断标准之一。
+#将域名加入到local-host-names文件
+vi /etc/mail/local-host-names
+#添要配置的域名 example.com
+#修改submit.cf文件
+vi /etc/mail/submit.cf
+#Dj$w.Foo.COM，修改为Djexample.com
+service sendmail restart
+
+
