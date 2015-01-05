@@ -137,6 +137,10 @@ cd /usr/local/bin/
 mdkir android
 cd android/
 wget http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz
+echo "# setting android home" >> /etc/profile
+echo "export ANDROID_HOME=/usr/local/bin/android/android-sdk-macosx" >> /etc/profile
+echo "export PATH=$PATH:$ANDROID_HOME/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools" >> /etc/profile
+source /etc/profile
 
 
 # run push listener service
