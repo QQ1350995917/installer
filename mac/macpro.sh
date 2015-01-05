@@ -1,3 +1,5 @@
+sudo passwd root
+
 mkdir bin
 cd bin/
 mkdir homebrew
