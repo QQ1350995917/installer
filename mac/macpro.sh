@@ -1,4 +1,5 @@
 sudo passwd root
+chmod 744 /etc/profile
 echo "alias vi='vim'">> /etc/profile
 echo "alias ll='ls -l'">> /etc/profile
 source /etc/profile 
