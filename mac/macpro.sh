@@ -19,5 +19,10 @@ brew install git
 brew install maven
 brew install wget
 
+# setting java home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
+# setting android home
+export ANDROID_HOME=/Users/dingpengwei/Applications/dev/android/android-sdk-macosx
+export export PATH=$PATH:$ANDROID_HOME/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 
