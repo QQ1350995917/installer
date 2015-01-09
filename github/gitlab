@@ -1,12 +1,11 @@
 
 # 1. Packages / Dependencies
+# run as root!
 apt-get update -y
 apt-get upgrade -y
 apt-get install sudo -y
-
 #Install the required packages (needed to compile Ruby and native extensions to Ruby gems):
 sudo apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake libkrb5-dev
-
 # Install Git
 sudo apt-get install -y git-core
 # Make sure Git is version 1.7.10 or higher, for example 1.7.12 or 2.0.0
@@ -25,7 +24,6 @@ make prefix=/usr/local all
 # Install into /usr/local/bin
 sudo make prefix=/usr/local install
 # When editing config/gitlab.yml (Step 5), change the git -> bin_path to /usr/local/bin/git
-
 #In order to receive mail notifications, make sure to install a mail server. By default, Debian is shipped with exim4 but this has problems while Ubuntu does not ship with one. The recommended mail server is postfix and you can install it with:
 sudo apt-get install -y postfix
 
