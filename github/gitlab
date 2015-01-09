@@ -9,10 +9,8 @@ sudo apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdb
 
 # Install Git
 sudo apt-get install -y git-core
-
 # Make sure Git is version 1.7.10 or higher, for example 1.7.12 or 2.0.0
 git --version
-
 #Is the system packaged Git too old? Remove it and compile from source.
 # Remove packaged Git
 sudo apt-get remove git-core
@@ -75,10 +73,113 @@ mysql> GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, LOCK TA
 # Quit the database session
 mysql> \q
 # Try connecting to the new database with the new user
-sudo -u git -H mysql -u git -p -D gitlabhq_production
+sudo -u code -H mysql -u code -p -D gitlabhq_production
 # Type the password you replaced $password with earlier
 # You should now see a 'mysql>' prompt
 # Quit the database session
 mysql> \q
 # You are done installing the database and can go back to the rest of the installation.
+
+#5. Redis
+apt-get -y install tcl 8.5
+sudo apt-get install redis-server
+# Configure redis to use sockets
+sudo cp /etc/redis/redis.conf /etc/redis/redis.conf.orig
+# Disable Redis listening on TCP by setting 'port' to 0
+sed 's/^port .*/port 0/' /etc/redis/redis.conf.orig | sudo tee /etc/redis/redis.conf
+# Enable Redis socket for default Debian / Ubuntu path
+echo 'unixsocket /var/run/redis/redis.sock' | sudo tee -a /etc/redis/redis.conf
+# Grant permission to the socket to all members of the redis group
+echo 'unixsocketperm 770' | sudo tee -a /etc/redis/redis.conf
+# Create the directory which contains the socket
+mkdir /var/run/redis
+chown redis:redis /var/run/redis
+chmod 755 /var/run/redis
+# Persist the directory which contains the socket, if applicable
+if [ -d /etc/tmpfiles.d ]; then
+  echo 'd  /var/run/redis  0755  redis  redis  10d  -' | sudo tee -a /etc/tmpfiles.d/redis.conf
+fi
+# Activate the changes to redis.conf
+sudo service redis-server restart
+# Add code to the redis group
+sudo usermod -aG redis code
+
+6. GitLab
+# We'll install GitLab into home directory of the user "git"
+cd /home/code
+# Clone GitLab repository
+sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-6-stable gitlab
+#Note: You can change 7-6-stable to master if you want the bleeding edge version, but never install master on a production server!
+#Configure It
+# Go to GitLab installation folder
+cd /home/code/gitlab
+# Copy the example GitLab config
+sudo -u code -H cp config/gitlab.yml.example config/gitlab.yml
+
+# Update GitLab config file, follow the directions at top of file
+sudo -u code -H editor config/gitlab.yml
+# Make sure GitLab can write to the log/ and tmp/ directories
+sudo chown -R code log/
+sudo chown -R code tmp/
+sudo chmod -R u+rwX,go-w log/
+sudo chmod -R u+rwX tmp/
+# Create directory for satellites
+sudo -u code -H mkdir /home/code/gitlab-satellites
+sudo chmod u+rwx,g=rx,o-rwx /home/code/gitlab-satellites
+# Make sure GitLab can write to the tmp/pids/ and tmp/sockets/ directories
+sudo chmod -R u+rwX tmp/pids/
+sudo chmod -R u+rwX tmp/sockets/
+# Make sure GitLab can write to the public/uploads/ directory
+sudo chmod -R u+rwX  public/uploads
+# Copy the example Unicorn config
+sudo -u code -H cp config/unicorn.rb.example config/unicorn.rb
+# Find number of cores
+nproc
+# Enable cluster mode if you expect to have a high load instance
+# Ex. change amount of workers to 3 for 2GB RAM server
+# Set the number of workers to at least the number of cores
+sudo -u code -H editor config/unicorn.rb
+# Copy the example Rack attack config
+sudo -u code -H cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb
+# Configure Git global settings for code user, useful when editing via web
+# Edit user.email according to what is set in gitlab.yml
+sudo -u code -H git config --global user.name "code"
+sudo -u code -H git config --global user.email "code@maxwe.org"
+sudo -u code -H git config --global core.autocrlf input
+# Configure Redis connection settings
+sudo -u code -H cp config/resque.yml.example config/resque.yml
+# Change the Redis socket path if you are not using the default Debian / Ubuntu configuration
+sudo -u code -H editor config/resque.yml
+#Important Note: Make sure to edit both gitlab.yml and unicorn.rb to match your setup. Note: If you want to use HTTPS, see Using HTTPS for the additional steps.
+#Configure GitLab DB Settings
+# MySQL only:
+sudo -u code cp config/database.yml.mysql config/database.yml
+
+# MySQL and remote PostgreSQL only:
+# Update username/password in config/database.yml.
+# You only need to adapt the production settings (first part).
+# If you followed the database guide then please do as follows:
+# Change 'secure password' with the value you have given to $password
+# You can keep the double quotes around the password
+sudo -u code -H editor config/database.yml
+#Install Gems
+#Note: As of bundler 1.5.2, you can invoke bundle install -jN (where N the number of your processor cores) and enjoy the parallel gems installation with measurable difference in completion time (~60% faster). Check the number of your cores with nproc. For more information check this post. First make sure you have bundler >= 1.5.2 (run bundle -v) as it addresses some issues that were fixed in 1.5.2.
+# For PostgreSQL (note, the option says "without ... mysql")
+sudo -u code -H bundle install --deployment --without development test mysql aws
+# Or if you use MySQL (note, the option says "without ... postgres")
+sudo -u code -H bundle install --deployment --without development test postgres aws
+#Install GitLab Shell
+
+
+
+
+
+
+
+
+
+
+
+
+
 
