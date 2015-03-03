@@ -1,0 +1,8 @@
+# chmod 400 maxwe.org.pem
+# ssh -i ~/Downloads/maxwe.pem ubuntu@52.74.8.91
+# 进入root
+# sudo -i
+# 修改ubuntu密码
+# passwd ubuntu
+# 修改root密码
+# passwd root

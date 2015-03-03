@@ -1,0 +1,19 @@
+# chmod 400 maxwe.org.pem
+# ssh -i ~/Downloads/maxwe.pem ubuntu@52.74.8.91
+# 进入root
+# sudo -i
+# 修改ubuntu密码
+# passwd ubuntu
+# 修改root密码
+# passwd root
+
+# ======================================================设置SSH 允许用户名和密码登陆======================================================
+# 备份/etc/ssh/sshd_config
+mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+# vim /etc/ssh/sshd_config
+# 允许用户名和密码登陆
+# 修改PasswordAuthentication的值为yes
+wget 
+chmod 644 /etc/ssh/sshd_config
+# restart ssh
+service ssh restart  # or /etc/init.d/ssh restart
