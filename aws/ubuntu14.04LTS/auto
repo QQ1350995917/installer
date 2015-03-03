@@ -18,3 +18,12 @@ wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu1
 chmod 644 /etc/ssh/sshd_config
 # restart ssh
 service ssh restart  # or /etc/init.d/ssh restart
+
+# install gcc
+apt-get install -y gcc
+
+# install make 
+apt-get install -y make
+
+# install zip
+apt-get install -y zip
