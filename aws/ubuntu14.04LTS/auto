@@ -13,7 +13,8 @@ mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
 # vim /etc/ssh/sshd_config
 # 允许用户名和密码登陆
 # 修改PasswordAuthentication的值为yes
-wget 
+cd /etc/ssh/
+wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu14.04LTS/sshd_config
 chmod 644 /etc/ssh/sshd_config
 # restart ssh
 service ssh restart  # or /etc/init.d/ssh restart
