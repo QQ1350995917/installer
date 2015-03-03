@@ -6,3 +6,5 @@
 # passwd ubuntu
 # 修改root密码
 # passwd root
+# 安装git客户端
+# apt-get install -y git
