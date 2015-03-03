@@ -59,3 +59,43 @@ echo "export CLASSPATH=.:\$JAVA_HOME/jre/lib/rt.jar:\$JAVA_HOME/lib/dt.jar:\$JAV
 echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> /etc/profile
 source /etc/profile
 
+
+# install maven 
+echo "==========================================================================================="
+echo "=====================================install maven========================================="
+echo "==========================================================================================="
+cd /usr/local/bin/
+mkdir maven
+cd maven/
+wget http://apache.fayea.com/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
+tar -zxvf apache-maven-3.2.5-bin.tar.gz
+ln -s apache-maven-3.2.5 maven
+# config maven path
+echo "==========================================================================================="
+echo "=================================config maven path========================================="
+echo "==========================================================================================="
+echo "# setting maven home" >> /etc/profile
+echo "export MAVEN_HOME=/usr/local/bin/maven/maven" >> /etc/profile
+echo "export PATH=\$PATH:\$MAVEN_HOME/bin" >> /etc/profile
+source /etc/profile
+
+# install vert.x
+echo "==========================================================================================="
+echo "=====================================install vert.x========================================="
+echo "==========================================================================================="
+cd /usr/local/bin/
+mkdir vertx
+cd vertx/
+wget http://dl.bintray.com/vertx/downloads/vert.x-2.1.5.tar.gz
+tar -zxvf vert.x-2.1.5.tar.gz
+ln -s vert.x-2.1.5 vertx
+cd vertx/
+# config vertx path
+echo "==========================================================================================="
+echo "=================================config vertx path========================================="
+echo "==========================================================================================="
+echo "# setting vertx home" >> /etc/profile
+echo "export VERTX_HOME=/usr/local/bin/vertx/vertx" >> /etc/profile
+echo "export PATH=\$PATH:\$VERTX_HOME/bin" >> /etc/profile
+source /etc/profile
+
