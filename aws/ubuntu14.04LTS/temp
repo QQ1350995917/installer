@@ -6,8 +6,8 @@ cd /usr/local/bin/
 mkdir maven
 cd maven/
 wget http://apache.dataguru.cn/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
-tar -zxvf apache-maven-3.2.2-bin.tar.gz
-ln -s apache-maven-3.2.2 maven
+tar -zxvf apache-maven-3.2.5-bin.tar.gz
+ln -s apache-maven-3.2.5 maven
 # config maven path
 echo "==========================================================================================="
 echo "=================================config maven path========================================="
