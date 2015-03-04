@@ -8,3 +8,12 @@
 # passwd root
 # 安装git客户端
 # apt-get install -y git
+
+# affter install mysql server in "auto" file login mysql with root
+CREATE USER 'gerrit'@'localhost' IDENTIFIED BY 'gerrit';
+CREATE DATABASE reviewdb;
+ALTER DATABASE reviewdb charset=latin1;
+GRANT ALL ON reviewdb.* TO 'gerrit'@'localhost';
+FLUSH PRIVILEGES;
+# 需要注意的是mysql默认安装以后所有字符集都是拉丁1，请不要更改此默认设置，reviewdb改成utf8以后安装gerrit时跑数据库脚本出错，会导致使用过程中会出现一些莫名的错误。  
+
