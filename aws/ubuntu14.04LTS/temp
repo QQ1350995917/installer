@@ -1,20 +1,11 @@
-# install vert.x
+# install mysql client
 echo "==========================================================================================="
-echo "=====================================install vert.x========================================="
+echo "=================================install mysql client======================================"
 echo "==========================================================================================="
-cd /usr/local/bin/
-mkdir vertx
-cd vertx/
-wget http://dl.bintray.com/vertx/downloads/vert.x-2.1.5.tar.gz
-tar -zxvf vert.x-2.1.5.tar.gz
-ln -s vert.x-2.1.5 vertx
-cd vertx/
-# config vertx path
-echo "==========================================================================================="
-echo "=================================config vertx path========================================="
-echo "==========================================================================================="
-echo "# setting vertx home" >> /etc/profile
-echo "export VERTX_HOME=/usr/local/bin/vertx/vertx" >> /etc/profile
-echo "export PATH=\$PATH:\$VERTX_HOME/bin" >> /etc/profile
-source /etc/profile
+apt-get install -Y mysql-client-5.5
 
+# install mysql server
+echo "==========================================================================================="
+echo "=================================install mysql server======================================"
+echo "==========================================================================================="
+apt-get install -Y mysql-server-5.5
