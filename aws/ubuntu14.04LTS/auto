@@ -121,3 +121,12 @@ cd /usr/local/bin/
 mkdir gerrit
 cd gerrit/
 wget http://gerrit-releases.storage.googleapis.com/gerrit-2.11-rc0.war
+# config gerrit service
+echo "==========================================================================================="
+echo "=================================config gerrit service====================================="
+echo "==========================================================================================="
+java -jar gerrit-2.9-rc2.war init -d gerrit
+cd gerrit/etc/
+mv gerrit.config gerrit.config.backup
+wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu14.04LTS/gerrit.config
+
