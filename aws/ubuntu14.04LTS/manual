@@ -14,6 +14,19 @@ CREATE USER 'gerrit'@'localhost' IDENTIFIED BY 'gerrit';
 CREATE DATABASE reviewdb;
 ALTER DATABASE reviewdb charset=latin1;
 GRANT ALL ON reviewdb.* TO 'gerrit'@'localhost';
+SET PASSWORD FOR 'gerrit'@'localhost' = PASSWORD('gerrit');
 FLUSH PRIVILEGES;
 # 需要注意的是mysql默认安装以后所有字符集都是拉丁1，请不要更改此默认设置，reviewdb改成utf8以后安装gerrit时跑数据库脚本出错，会导致使用过程中会出现一些莫名的错误。  
 
+# affter install apache2 and apache2-utils to find the htpsswd command if you cant find the htpasswd command
+find / -name htpasswd -type f
+# gen the password file
+cd /usr/local/bin/gerrit/
+touch gerrit.gerrit
+htpasswd gerrit.gerrit codeadmin
+# then type the password
+
+# enter the bin dir of gerrit 
+# cd /usr/local/bin/gerrit/gerrit/bin
+# start the gerrit service
+./gerrit.sh start
