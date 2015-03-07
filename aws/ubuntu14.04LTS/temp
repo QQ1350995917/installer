@@ -1,26 +1,9 @@
-# install apache2
+# config maxwe.org servier
 echo "==========================================================================================="
-echo "====================================install apache2========================================"
+echo "===============================config maxwe.org service===================================="
 echo "==========================================================================================="
-apt-get install -Y apache2
-
-# start apache2 mudole
-echo "==========================================================================================="
-echo "=================================install apache2 module===================================="
-echo "==========================================================================================="
-a2enmod proxy
-a2enmod proxy_ajp
-a2enmod proxy_balancer
-a2enmod proxy_connect
-a2enmod proxy_ftp
-a2enmod proxy_http
-
-# install apache2-utils
-echo "==========================================================================================="
-echo "=================================install apache2-utils====================================="
-echo "==========================================================================================="
-apt-get install -Y apache2-utils
-
+cd /usr/local/bin/
+git clone https://github.com/maxwe/www.maxwe.org.git
+cd /etc/apache2/sites-available
+wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu14.04LTS/000-default.conf
 service apache2 restart
-
-
