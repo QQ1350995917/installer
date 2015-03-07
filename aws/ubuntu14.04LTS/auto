@@ -156,8 +156,12 @@ apt-get install -Y apache2-utils
 service apache2 restart
 
 
-# config mail servier
+# config maxwe.org servier
 echo "==========================================================================================="
-echo "==================================config mail service======================================"
+echo "===============================config maxwe.org service===================================="
 echo "==========================================================================================="
-
+cd /usr/local/bin/
+git clone https://github.com/maxwe/www.maxwe.org.git
+cd /etc/apache2/sites-available
+wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu14.04LTS/000-default.conf
+service apache2 restart
