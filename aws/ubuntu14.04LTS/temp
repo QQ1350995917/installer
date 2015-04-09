@@ -1,9 +1,7 @@
-# config maxwe.org servier
-echo "==========================================================================================="
-echo "===============================config maxwe.org service===================================="
-echo "==========================================================================================="
-cd /usr/local/bin/
-git clone https://github.com/maxwe/www.maxwe.org.git
-cd /etc/apache2/sites-available
-wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu14.04LTS/000-default.conf
-service apache2 restart
+cd /usr/local/bin
+mkdir redmine
+cd redmine/
+wget http://www.redmine.org/releases/redmine-3.0.0.tar.gz
+tar -xzvf redmine-3.0.0.tar.gz
+ln -s redmine-3.0.0 redmine
+

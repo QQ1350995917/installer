@@ -30,3 +30,24 @@ htpasswd gerrit.gerrit codeadmin
 # cd /usr/local/bin/gerrit/gerrit/bin
 # start the gerrit service
 ./gerrit.sh start
+
+# affter install redmine
+CREATE DATABASE redmine CHARACTER SET utf8;
+CREATE USER 'redmine'@'localhost' IDENTIFIED BY 'redmine';
+GRANT ALL PRIVILEGES ON redmine.* TO 'redmine'@'localhost';
+
+-- Creation of a login with SQL Server login/password authentication and no password expiration policy
+CREATE LOGIN REDMINE WITH PASSWORD=N'redmine', DEFAULT_DATABASE=REDMINE, CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF;
+USE REDMINE;
+CREATE USER REDMINE FOR LOGIN REDMINE;
+-- User permissions set via roles
+EXEC sp_addrolemember N'db_datareader', N'REDMINE';
+EXEC sp_addrolemember N'db_datawriter', N'REDMINE';
+
+
+
+
+
+
+
+

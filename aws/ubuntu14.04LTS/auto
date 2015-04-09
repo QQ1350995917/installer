@@ -105,13 +105,13 @@ source /etc/profile
 echo "==========================================================================================="
 echo "=================================install mysql client======================================"
 echo "==========================================================================================="
-apt-get install -Y mysql-client-5.5
+apt-get install -y mysql-client-5.5
 
 # install mysql server
 echo "==========================================================================================="
 echo "=================================install mysql server======================================"
 echo "==========================================================================================="
-apt-get install -Y mysql-server-5.5
+apt-get install -y mysql-server-5.5
 
 # install gerrit service
 echo "==========================================================================================="
@@ -134,7 +134,7 @@ wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu1
 echo "==========================================================================================="
 echo "====================================install apache2========================================"
 echo "==========================================================================================="
-apt-get install -Y apache2
+apt-get install -y apache2
 
 # start apache2 mudole
 echo "==========================================================================================="
@@ -151,17 +151,43 @@ a2enmod proxy_http
 echo "==========================================================================================="
 echo "=================================install apache2-utils====================================="
 echo "==========================================================================================="
-apt-get install -Y apache2-utils
+apt-get install -y apache2-utils
 
 service apache2 restart
 
-
-# config maxwe.org servier
+# install ruby
 echo "==========================================================================================="
-echo "===============================config maxwe.org service===================================="
+echo "=====================================install ruby=========================================="
+echo "==========================================================================================="
+apt-get install -y ruby
+
+# install ruby gems
+echo "==========================================================================================="
+echo "===================================install ruby gems======================================="
 echo "==========================================================================================="
 cd /usr/local/bin/
-git clone https://github.com/maxwe/www.maxwe.org.git
-cd /etc/apache2/sites-available
-wget https://raw.githubusercontent.com/QQ1350995917/installer/master/aws/ubuntu14.04LTS/000-default.conf
-service apache2 restart
+mkdir rubygems
+cd rubygems/
+wget http://production.cf.rubygems.org/rubygems/rubygems-2.4.6.tgz
+tar -zxvf rubygems-2.4.6.tgz
+ln -s rubygems-2.4.6 rubygems
+cd rubygems
+ruby setup.rb
+
+# install ruby rails
+echo "==========================================================================================="
+echo "==================================install ruby rails======================================="
+echo "==========================================================================================="
+apt-get install -y rails
+
+# config redmine
+echo "==========================================================================================="
+echo "====================================config redmine========================================="
+echo "==========================================================================================="
+gem install bundler
+cd /usr/local/bin/redmine/redmine/
+apt-get install -y libxslt-dev libxml2-dev  
+bundle install --without development test
+
+
+
