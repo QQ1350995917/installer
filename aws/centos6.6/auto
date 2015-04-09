@@ -1,0 +1,83 @@
+yum install -y git
+yum install -y screen
+
+cd /usr/local/bin/
+# install apache2 
+mkdir apache2
+cd apache2/
+wget http://apache.dataguru.cn//httpd/httpd-2.4.12.tar.gz
+tar -zxvf httpd-2.4.12.tar.gz
+
+wget http://archive.apache.org/dist/apr/apr-1.4.5.tar.gz
+wget http://archive.apache.org/dist/apr/apr-util-1.3.12.tar.gz  
+wget http://jaist.dl.sourceforge.net/project/pcre/pcre/8.10/pcre-8.10.zip
+
+tar -xzvf apr-1.4.5.tar.gz
+tar -xzvf apr-util-1.3.12.tar.gz
+unzip pcre-8.10.zip
+
+cd /usr/local/bin/apache2/apr-1.4.5/
+./configure --prefix=/usr/local/apr
+make && make install
+
+cd /usr/local/bin/apache2/apr-util-1.3.12/
+./configure --prefix=/usr/local/apr-util -with-apr=/usr/local/apr/bin/apr-1-config
+make && make install
+
+cd /usr/local/bin/apache2/pcre-8.10/
+./configure --prefix=/usr/local/pcre
+make && make install
+
+cd /usr/local/bin/apache2/
+./configure --prefix=/usr/local/apache --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util/ --with-pcre=/usr/local/pcre
+make && make install
+
+cp build/rpm/httpd.init /etc/init.d/httpd
+chmod 755 /etc/init.d/httpd
+chkconfig --add httpd
+chkconfig --level 35 httpd on
+
+CONFFILE=/etc/httpd/conf/httpd.conf
+httpd=${HTTPD-/usr/sbin/httpd}
+pidfile=${PIDFILE-/var/log/httpd/${prog}.pid}
+lockfile=${LOCKFILE-/var/lock/subsys/${prog}}
+
+ln -s /usr/local/apache/ /etc/httpd
+ln -s /usr/local/apache/bin/httpd /usr/sbin/httpd
+ln -s /usr/local/apache/bin/apachectl /usr/sbin/apachectl
+ln -s /usr/local/apache/logs /var/log/httpd
+
+# service httpd restart
+# service httpd start
+# /usr/local/apache/bin/apachectl start
+# /usr/local/apache/bin/apachectl stop
+# /usr/local/apache/bin/apachectl status
+# /etc/init.d/httpd start
+# /etc/init.d/httpd stop
+# /etc/init.d/httpd restart
+
+
+# install vert.x
+echo "==========================================================================================="
+echo "=====================================install vert.x========================================="
+echo "==========================================================================================="
+cd /usr/local/bin/
+mkdir vertx
+cd vertx/
+wget http://dl.bintray.com/vertx/downloads/vert.x-2.1.5.tar.gz
+tar -zxvf vert.x-2.1.5.tar.gz
+ln -s vert.x-2.1.5 vertx
+cd vertx/
+# config vertx path
+echo "==========================================================================================="
+echo "=================================config vertx path========================================="
+echo "==========================================================================================="
+echo "# setting vertx home" >> /etc/profile
+echo "export VERTX_HOME=/usr/local/bin/vertx/vertx" >> /etc/profile
+echo "export PATH=\$PATH:\$VERTX_HOME/bin" >> /etc/profile
+source /etc/profile
+
+
+
+
+
