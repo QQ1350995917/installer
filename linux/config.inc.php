@@ -14,7 +14,7 @@
  * This is needed for cookie based authentication to encrypt password in
  * cookie
  */
-$cfg['blowfish_secret'] = 'phpadmin'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['blowfish_secret'] = 'yangxiangguo../'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /*
  * Servers configuration
@@ -29,9 +29,13 @@ $i++;
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
 $cfg['Servers'][$i]['host'] = 'localhost';
+$cfg['Servers'][$i]['port'] = '';
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'yangxiangguo../';
 $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+$cfg['PmaAbsoluteUri'] = 'http://db.maxwe.org/';
 
 /*
  * phpMyAdmin configuration storage settings.
@@ -44,24 +48,24 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 // $cfg['Servers'][$i]['controlpass'] = 'pmapass';
 
 /* Storage database and tables */
- $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
- $cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
- $cfg['Servers'][$i]['relation'] = 'pma__relation';
- $cfg['Servers'][$i]['table_info'] = 'pma__table_info';
- $cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
- $cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
- $cfg['Servers'][$i]['column_info'] = 'pma__column_info';
- $cfg['Servers'][$i]['history'] = 'pma__history';
- $cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
- $cfg['Servers'][$i]['tracking'] = 'pma__tracking';
- $cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
- $cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
- $cfg['Servers'][$i]['recent'] = 'pma__recent';
- $cfg['Servers'][$i]['favorite'] = 'pma__favorite';
- $cfg['Servers'][$i]['users'] = 'pma__users';
- $cfg['Servers'][$i]['usergroups'] = 'pma__usergroups';
- $cfg['Servers'][$i]['navigationhiding'] = 'pma__navigationhiding';
- $cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';
+// $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+// $cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+// $cfg['Servers'][$i]['relation'] = 'pma__relation';
+// $cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+// $cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+// $cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+// $cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+// $cfg['Servers'][$i]['history'] = 'pma__history';
+// $cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+// $cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+// $cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
+// $cfg['Servers'][$i]['recent'] = 'pma__recent';
+// $cfg['Servers'][$i]['favorite'] = 'pma__favorite';
+// $cfg['Servers'][$i]['users'] = 'pma__users';
+// $cfg['Servers'][$i]['usergroups'] = 'pma__usergroups';
+// $cfg['Servers'][$i]['navigationhiding'] = 'pma__navigationhiding';
+// $cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';
+// $cfg['Servers'][$i]['central_columns'] = 'pma__central_columns';
 /* Contrib / Swekey authentication */
 // $cfg['Servers'][$i]['auth_swekey_config'] = '/etc/swekey-pma.conf';
 
@@ -116,17 +120,12 @@ $cfg['SaveDir'] = '';
 //$cfg['DefaultLang'] = 'de';
 
 /**
- * default display direction (horizontal|vertical|horizontalflipped)
- */
-//$cfg['DefaultDisplay'] = 'vertical';
-
-
-/**
  * How many columns should be used for table display of a database?
  * (a value larger than 1 results in some information being hidden)
  * default = 1
  */
 //$cfg['PropertiesNumColumns'] = 2;
+
 /**
  * Set to true if you want DB-based query history.If false, this utilizes
  * JS-routines to display query history (lost by window close)
