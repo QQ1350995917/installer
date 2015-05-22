@@ -7,6 +7,12 @@
 # change root password
 # passwd root
 
+# upgrade system
+# apt-get update
+# apt-get install update-manager-core
+# do-release-upgrade -d
+# apt-get install lsb-core
+
 echo "==========================================================================================="
 echo "=======================config SSH allow login with username and password==================="
 echo "==========================================================================================="
