@@ -214,3 +214,12 @@ unzip phpMyAdmin-4.4.7-all-languages.zip
 ln -s phpMyAdmin-4.4.7-all-languages phpadmin
 cd /usr/local/bin/phpadmin/phpadmin
 cp config.sample.inc.php config.inc.php 
+
+
+# setting android home
+# export ANDROID_HOME=/Users/dingpengwei/Applications/dev/android/android-sdk-macosx
+# export PATH=$PATH:$ANDROID_HOME/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+# setting ndk home
+# export ANDROID_NDK_HOME=/Users/dingpengwei/Applications/dev/android/android-ndk-r10e
+# export PATH=$PATH:$ANDROID_NDK_HOME
