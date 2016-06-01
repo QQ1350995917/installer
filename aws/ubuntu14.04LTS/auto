@@ -223,3 +223,7 @@ cp config.sample.inc.php config.inc.php
 # setting ndk home
 # export ANDROID_NDK_HOME=/Users/dingpengwei/Applications/dev/android/android-ndk-r10e
 # export PATH=$PATH:$ANDROID_NDK_HOME
+
+
+# export GRADLE_HOME=/Users/dingpengwei/Applications/dev/gradle/gradle
+# export PATH=$PATH:$GRADLE_HOME/bin
