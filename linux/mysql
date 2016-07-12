@@ -28,5 +28,11 @@ flush privileges;
 GRANT ALL PRIVILEGES ON db_guest.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
 
-#mysql.server start
-#mysql.server stop
+# mysql.server start
+# mysql.server stop
+# mysql -u root -p
+# exit
+# select * from mysql.user;//查询所有用户
+# status;
+# select version();  
+# show global variables like 'port';
