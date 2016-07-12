@@ -28,3 +28,5 @@ flush privileges;
 GRANT ALL PRIVILEGES ON db_guest.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'guest'@'localhost' IDENTIFIED BY 'guest' WITH GRANT OPTION;
 
+#mysql.server start
+#mysql.server stop
