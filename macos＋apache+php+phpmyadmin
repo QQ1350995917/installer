@@ -1,0 +1,113 @@
+启动Apache
+打开“系统设置偏好（System Preferences）” -> “共享（Sharing）” -> “Web共享（Web Sharing）”。注意，从Mac OS X从10.8开始取消了 “Web共享（Web Sharing）”。
+打开“终端（terminal）”，然后（注意，sudo需要的密码就是系统的root帐号密码）
+运行“sudo apachectl start”，再输入帐号密码，这样Apache就运行了。
+运行“sudo apachectl －v”，你会看到Mac OS X的Apache版本信息，如10.8.1中：
+Server version: Apache/2.2.22 (Unix)
+Server built:   Jun 20 2012 13:57:09
+如此在浏览器中输入“http://localhost”，就可以看到一个内容为“It works!”的页面，其位于“/Library（资源库）/WebServer/Documents/”下，这就是Apache的默认根目录。
+
+运行PHP
+
+在终端中运行“sudo vi /etc/apache2/httpd.conf”，打开Apache的配置文件。（如果不习惯操作终端和vi，可以设置在Finder中显示所有系统隐藏文件，记得设置完毕后需要重启Finder，然后就可以找到对应文件，随心所欲编辑了，需要注意的是某些文件的修改还是需要开启root帐号，但整体上还是在终端上使用sudo来临时获取root权限比较安全。）
+找到“#LoadModule php5_module libexec/apache2/libphp5.so”，把前面的#号去掉，保存（在命令行输入:w）并退出vi（在命令行输入:q）。
+运行“sudo cp /etc/php.ini.default /etc/php.ini”，这样就可以运行sudo vi /etc/php.ini来编辑php.ini配置各种功能了。比如：
+;通过下面两项来调整PHP提交文件的最大值，如phpMyAdmin中导入数据的最大值
+upload_max_filesize = 2M
+post_max_size = 8M
+;通过display_errors来控制是否显示PHP程序的报错信息，这在调试PHP程序时非常有用
+display_errors = Off
+运行“sudo apachectl restart”，重启Apache，这样PHP就可以用了。
+运行“sudo cp /Library/WebServer/Documents/index.html.en /Library/WebServer/Documents/info.php”，即在Apache的根目录下复制index.html.en文件并重命名为info.php。
+在终端中运行“sudo vi /Library/WebServer/Document/info.php”，这样就可以在vi中编辑info.php文件了。在“It’s works!”后面加上“<?php phpinfo(); ?>”，然后保存之。如此就可以在http://localhost/info.php中看到有关PHP的信息，比如10.8中内置PHP版本号是5.3.13。
+对于不熟悉vi这种编辑器的人来说，实在是太恼火了。我决定下个eclipse。vi有两种模式，命令模式和文本编辑模式。esc键就是回到命令模式，冒号：i就是插入模式。可以改写文档。：w就是保存，：q退出。
+
+
+
+
+安装MySQL
+
+Mac OS X没有内置MySQL，所以需要自己手动安装，目前MySQL的最稳定版本是5.5。MySQL提供了Mac OS X下的安装说明。
+
+下载MySQL 5.5。选择合适版本，如这里选择了mysql-5.5.27-osx10.6-x86_64.dmg。
+运行dmg，会发现里面有4个文件。首先点击安装mysql-5.5.27-osx10.6-x86_64.pkg，这是MySQL主安装包。一般情况下，安装文件会自动把MySQL安装到/usr/local下的同名文件夹下。如运行“mysql-5.5.27-osx10.6-x86_64.dmg”会把MySQL安装到“/usr/local/mysql-5.5.27-osx10.6-x86_64” 中，一路默认安装完毕。（注意，从10.8开始Mac OS X的权限更加严格，直接点击会提示“mysql-5.5.27-osx10.6-x86_64.pkg can’t be opened because it is from an unidentified developer. Your security preferences allow installation of only apps from the Mac App Store and identified developers.”阻止了安装，你可以使用双指单击该安装文件，在弹出菜单中选择“用…打开（open with）”，再选择“安装（Installer）”就可以接着安装了。）
+安装第2个文件MySQLStartupItem.pkg，MySQL就会自动在开机时启动了。（注意，10.8的安装方法同上。）
+安装第3个文件MySQL.prefPane，就会在“系统设置偏好”中看到“MySQL”的ICON，通过它就可以控制MySQL是否开启，以 及开机时是否自动运行。到这里MySQL就基本安装完毕了。（注意，10.8中用双指单击该安装文件，在弹出的菜单中选择“用…打开（open with）”，然后选择“系统偏好（System Perference）”就可以接着安装了。）
+通过运行“sudo vi /etc/bashrc”，在bash配置文件中加入mysqlstart、mysql和mysqladmin的别名（注意：修改完毕之后需要退出“终端（Terminal）”之后重新进入，这些命令才会生效）：
+#mysql
+alias mysqlstart='sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart'
+alias mysql='/usr/local/mysql/bin/mysql'
+alias mysqladmin='/usr/local/mysql/bin/mysqladmin'
+这样就可以在终端中比较简单地通过命令进行相应的操作。由于开始安装MySQLStartupItem.pkg到“/Library/StartupItems/MySQLCOM/”来控制MySQL的运行、自动运行、停止、关闭之类。在MySQL没有启动时，直接运行mysql或mysqladmin命令会提示“Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)”，所以我们可以通过控制面板或者直接运行mysqlstart命令来启动MySQL，之后再运行mysql或mysqladmin命令就正常了。比如安装完毕后MySQL的root默认密码为空，如果要设置密码可以在终端运行“mysqladmin -u root password "mysqlpassword"”来设置，其中mysqlpassword即root的密码。更多相关内容可以参考B.5.4.1. How to Reset the Root Password。
+
+注意：Mac OS X的升级或其他原因可能会导致ＭySQL启动或开机自动运行时，在ＭySQL操作面板上会提示“Warning:The /usr/local/mysql/data directory is not owned by the 'mysql' or '_mysql' ”，这应该是某种情况下导致/usr/local/mysql/data的宿主发生了改变，只需要运行“sudo chown -R mysql /usr/local/mysql/data”即可。
+
+另外，使用PHP连接MySQL可能会报错“Can’t connect to local MySQL server through socket ‘/var/mysql/mysql.sock’”，或使用localhost无法连接MySQL而需要127.0.0.1，原因是连接时php默认去找/var/mysql/mysql.sock了，但MAC版的MYSQL改动了文件位置，放在/tmp下了。处理办法是按如下修改php.ini：
+
+mysql.default_socket = /tmp/mysql.sock
+
+
+
+
+使用phpMyAdmin
+
+phpMyAdmin是用PHP开发的管理MySQL的程序，非常的流行和实用。能够使用phpMyAdmin管理MySQL是检验前面几步效果的非常有效方式。
+
+下载phpMyAdmin。选择合适的版本，比如这里选择phpMyAdmin-3.5.22-all-languages.tar.bz2这个版本。
+把“下载（downloads）”中phpMyAdmin-3.5.22-all-languages.tar.bz2文件解压到“ /Library/WebServer/Documents/”中，并改名为phpmyadmin。
+sudo tar -xf ~/Downloads/phpMyAdmin-3.5.2.2-all-languages.tar.bz2 -C
+             /Library/WebServer/Documents/
+sudo mv /Library/WebServer/Documents/phpMyAdmin-3.5.2.2-all-languages
+            /Library/WebServer/Documents/phpmyadmin
+
+复制“/Library/WebServer/Documents/phpmyadmin/”中的config.sample.inc.php，并命名为config.inc.php
+编辑config.inc.php，修改如下：
+用于Cookie加密，随意的长字符串
+$cfg['blowfish_secret'] = 'a8b7c6d';
+
+当phpMyAdmin中出现“#2002 无法登录 MySQL 服务器（#2002 Cannot log in to the MySQL server）”时，
+请把localhost改成127.0.0.1就ok了，
+这是因为MySQL守护程序做了IP绑定（bind-address =127.0.0.1）造成的
+$cfg['Servers'][$i]['host'] = 'localhost';
+
+把false改成true，这样就可以访问无密码的MySQL了，
+即使MySQL设置了密码也可以这样设置，然后登录phpMyAdmin时输入密码
+$cfg['Servers'][$i]['AllowNoPassword'] = false;
+这样就可以通过http://localhost/phpmyadmin访问phpMyAdmin了。此时会看到一个 提示“无法加载 mcrypt 扩展，请检查您的 PHP 配置。（The mcrypt extension is missing. Please check your PHP configuration.）”，这会涉及到下一节安装MCrypt扩展了。
+登录名：root 密码： （空）
+
+
+
+关于错误处理：
+解决 .#2002 无法登录 MySQL 服务器
+
+将config.sample.inc.php复制成config.inc.php
+
+出现这个错误，表示没有连接到数据库。修改config.inc.php文件，
+ 
+将$cfg['Servers'][$i]['host'] = 'localhost'; 
+改为$cfg['Servers'][$i]['host'] = '127.0.0.1';
+--------------------------------------------------
+
+或者修改 php.ini : mysql.default_socket = /tmp/mysql.sock
+
+
+
+#1045 无法登录 MySQL 服务器。Access denied for user ‘root’@'localhost’ (using password: YES)
+
+问题原因：这有可能是由于前面设置mysql密码没有成功，所以导致了我们使用设置的mysql root密码无法登陆服务器。
+
+解决方法：这时可以尝试使用mysql 默认的root账号的空密码登陆数据库。
+
+
+如果使用空密码登陆时又出现：空密码登录被禁止 (参见 允许空密码) 的错误。则要修改/phpmyadmin/config.inc.php 文件，找到下面两行
+$cfg['Servers'][$i]['nopassword'] = false;
+$cfg['Servers'][$i]['AllowNoPassword'] = false;
+
+将两个false改为true，同时设置 $cfg['Servers'][$i]['password'] = ''；通过这样设置配置文件后phpmyadmin 就会允许以空密码方式登录mysql数据库了。
+
+若重新以空密码方式登录phpmyadmin有时仍无法登陆，请清除cookie或关闭原来的phpmyadmin 登录窗口，重新使用空密码登录。
+
+若这时候仍然显示空密码登陆被禁止，试试随便输入几个字符当作密码看是否能够登陆成功。
+
+登陆mysql服务器之后尽快将mysql密码在phpmyadmin中修改过来。
