@@ -111,3 +111,14 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 若这时候仍然显示空密码登陆被禁止，试试随便输入几个字符当作密码看是否能够登陆成功。
 
 登陆mysql服务器之后尽快将mysql密码在phpmyadmin中修改过来。
+
+
+phpMyAdmin隐藏多个数据库(information_schema|mysql|test)
+phpMyAdmin禁止/不允许用户修改密码
+phpMyAdmin隐藏多个数据库 information_schema|mysql|test
+编辑/libraries/config.default.php
+隐藏单个数据库,代码如下:
+$cfg['Servers'][$i]['hide_db'] = 'information_schema'
+隐藏多个数据库,代码如下:
+$cfg['Servers'][$i]['hide_db'] = '(information_schema|mysql|test)'
+#如果想要隐藏全部以hf开头的数据库，可以使用'^hf'，如果想隐藏一个列表，可以使用'(database|database|...)'的形式
