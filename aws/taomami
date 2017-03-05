@@ -19,6 +19,11 @@ service ssh restart
 
 ssh -l username -p port domain
 
+# config ssh protection strategy
+
+iptables -I INPUT -p tcp --dport sshPort -m state --state NEW -m recent --set
+iptables -I INPUT -p tcp --dport sshPort -m state --state NEW -m recent --update --seconds 60 --hitcount 3 -j DROP
+
 
 # install gcc
 echo "==========================================================================================="
