@@ -1,9 +1,24 @@
+# modify current user password
+passwd username
+
+# setting root password
+sudo passwd
+
 echo "==========================================================================================="
 echo "=======================================install ufw========================================="
 echo "============================================================================================"
 apt-get install ufw 
 ufw enable
 ufw default deny 
+ufw allow 22
+
+# modify ssh port
+vim /etc/ssh/sshd_config
+# restart ssh service
+service ssh restart
+
+ssh -l username -p port domain
+
 
 # install gcc
 echo "==========================================================================================="
