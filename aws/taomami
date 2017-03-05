@@ -24,6 +24,11 @@ ssh -l username -p port domain
 iptables -I INPUT -p tcp --dport sshPort -m state --state NEW -m recent --set
 iptables -I INPUT -p tcp --dport sshPort -m state --state NEW -m recent --update --seconds 60 --hitcount 3 -j DROP
 
+# config /etc/apt/source.list
+# http://www.linuxidc.com/Linux/2017-01/139458.htm
+cp /etc/apt/source.list /etc/apt/source.list.backup
+vim /etc/apt/source.list
+apt-get update
 
 # install gcc
 echo "==========================================================================================="
