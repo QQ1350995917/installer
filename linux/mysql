@@ -36,3 +36,13 @@ GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'guest'@'localhost' IDENTIFIED BY 'guest
 # status;
 # select version();  
 # show global variables like 'port';
+mysql> set character_set_client=utf8;
+mysql> set character_set_connection=utf8;
+mysql> set character_set_database=utf8;
+mysql> set character_set_results=utf8;
+mysql> set character_set_server=utf8;
+mysql> set character_set_system=utf8;
+mysql> set collation_connection=utf8;
+mysql> set collation_database=utf8;
+mysql> set collation_server=utf8;
+mysql> show variables like 'character_set_%';
