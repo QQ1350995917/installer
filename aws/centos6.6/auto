@@ -77,7 +77,25 @@ echo "export VERTX_HOME=/usr/local/bin/vertx/vertx" >> /etc/profile
 echo "export PATH=\$PATH:\$VERTX_HOME/bin" >> /etc/profile
 source /etc/profile
 
+yum -y install mysql-server mysql mysql-devel
+yum -y install mysql-connector-odbc mysql-devel libdbi-dbd-mysql
 
+
+/sbin/chkconfig mysqld on 
+/sbin/service mysqld start
+mysql admin -u root password 'yangxiangguo,./'
+
+yum install -y php php-mysql
+yum install -y php-gd
+yum install -y php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc
+
+cd /usr/local/bin/
+mkdir phpadmin
+cd phpadmin/
+wget xxx
+ln -s xxx phpadmin
+cd phpadmin/
+cp config.sample.inc.php config.inc.php
 
 
 
