@@ -1,0 +1,21 @@
+1、安装apache
+sudo apt-get install apache2
+为了测试apache2是否正常，访问http://localhost/或http://127.0.0.1/，出现It Works！即是安装成功。
+
+2、安装mysql
+sudo apt-get install mysql-server
+
+3、安装相关模块
+sudo apt-get install libapache2-mod-php5 libapache2-mod-auth-mysql php5-mysql
+安装完成后重启apache：
+sudo /etc/init.d/apache2 restart
+为了测试PHP是否正常，在/var/www/html下创建一个info.php的文件，内容如下：
+<?php phpinfo(); ?>
+访问：http://localhost/info.php，会出现php的配置信息。
+
+4、安装phpmyadmin 
+sudo apt-get install phpmyadmin 
+安装完成后访问：http://localhost/phpmyadmin/，提示not found。还需要把安装好的phpmyadmin文件夹放入/var/www/html。
+或者做一个软链接，连接到phpmyadmin所在的地方。
+
+参考文档：http://www.linuxidc.com/Linux/2012-08/69419.htm
