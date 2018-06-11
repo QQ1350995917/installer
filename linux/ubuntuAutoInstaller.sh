@@ -47,9 +47,9 @@ source /etc/profile
 cd /usr/local/bin/
 mkdir maven
 cd maven/
-wget http://mirror.nus.edu.sg/apache/maven/maven-3/3.2.2/binaries/apache-maven-3.2.2-bin.tar.gz
-tar -zxvf apache-maven-3.2.2-bin.tar.gz
-ln -s apache-maven-3.2.2 maven
+wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+tar -zxvf apache-maven-3.5.3-bin.tar.gz
+ln -s apache-maven-3.5.3 maven
 # config maven path
 echo "# setting maven home" >> /etc/profile
 echo "export MAVEN_HOME=/usr/local/bin/maven/maven" >> /etc/profile
@@ -59,7 +59,9 @@ source /etc/profile
 ############################ apache ##########################
 # apache
 
+############################ tomcat ##########################
 # tomcat
+
 # python
 # vertx
 # phpadmin
