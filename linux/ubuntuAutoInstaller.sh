@@ -59,8 +59,23 @@ source /etc/profile
 ############################ apache ##########################
 # apache
 
+
+
 ############################ tomcat ##########################
 # tomcat
+cd /usr/local/bin/
+mkdir tomcat
+cd tomcat/
+wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-9/v9.0.8/bin/apache-tomcat-9.0.8.tar.gz
+tar -zxvf apache-tomcat-9.0.8.tar.gz
+ln -s apache-tomcat-9.0.8 tomcat
+# config maven path
+echo "# setting tomcat home" >> /etc/profile
+echo "export TOMCAT_HOME=/usr/local/bin/tomcat/tomcat" >> /etc/profile
+echo "export PATH=\$PATH:\$TOMCAT_HOME/bin" >> /etc/profile
+source /etc/profile
+
+
 
 # python
 # vertx
