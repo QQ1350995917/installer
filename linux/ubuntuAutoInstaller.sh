@@ -76,15 +76,54 @@ echo "export PATH=\$PATH:\$TOMCAT_HOME/bin" >> /etc/profile
 source /etc/profile
 
 
-
+############################ python ##########################
 # python
+cd /usr/local/bin/
+mkdir python
+cd python/
+wget 
+############################ vertx ##########################
 # vertx
+cd /usr/local/bin/
+mkdir vertx
+cd vertx/
+curl -o vert.x-3.5.2-full.zip https://akamai.bintray.com/33/331fcc3cbb5b2241a412761127d4d2742b1bfa7029c3d29a24121ffbaaa896f5?__gda__=exp=1528711116~hmac=2a8fdc1f6b257e0eb0145700f161adf70126c13732d69a316054b30ae926fa2d&response-content-disposition=attachment%3Bfilename%3D%22vert.x-3.5.2-full.zip%22&response-content-type=application%2Fzip&requestInfo=U2FsdGVkX19Qn1_9A2jORNCQ7Kso6vAhP4BhnKWlUhUpQekU9kyMq1VZlROQMXuEfBpqIMrgmeUU5v9isUZzdI2DlXRDO0TXj-L2KAy0O1A7FbwTI3pysprZwgxPAO3NO0t55PZIV1rWrd4WcWU-EZu9s4s1lSzFu-v0V50zAvc&response-X-Checksum-Sha1=828ffab12b4f10d4036597cac3602b0eece5f952&response-X-Checksum-Sha2=331fcc3cbb5b2241a412761127d4d2742b1bfa7029c3d29a24121ffbaaa896f5
+unzip vert.x-3.5.2-full.zip 
+# config maven path
+echo "# setting vertx home" >> /etc/profile
+echo "export VERTX_HOME=/usr/local/bin/vertx/vertx" >> /etc/profile
+echo "export PATH=\$PATH:\$VERTX_HOME/bin" >> /etc/profile
+source /etc/profile
+
 # phpadmin
+cd /usr/local/bin/
+mkdir phpadmin
+cd phpadmin/
+wget https://files.phpmyadmin.net/phpMyAdmin/4.8.1/phpMyAdmin-4.8.1-all-languages.zip
+unzip phpMyAdmin-4.8.1-all-languages.zip
+ln -s phpMyAdmin-4.8.1-all-languages phpadmin
+
+
 # gitlab
 # JForg Artifact
 # Disconf
 # jenkins
 # LDAP
-# mysql
 # MongoDB
 # elastic
+# mysql
+cd /usr/local/bin
+mkdir mysql
+cd mysql/
+wget https://repo.mysql.com//mysql-apt-config_0.8.10-1_all.deb
+dpkg -i mysql-apt-config_0.8.10-1_all.deb
+# select 8.0 and press ok 
+apt update
+apt-get install mysql-server
+# input the password of root 
+# select and pres "Use Legacy Authentication Method (Retain MySQL 5.x Compatibility) "
+
+# apt isntall mysql-client
+# apt install libmysqlclient-dev
+
+
