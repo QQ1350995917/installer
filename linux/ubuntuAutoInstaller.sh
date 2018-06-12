@@ -103,14 +103,33 @@ wget https://files.phpmyadmin.net/phpMyAdmin/4.8.1/phpMyAdmin-4.8.1-all-language
 unzip phpMyAdmin-4.8.1-all-languages.zip
 ln -s phpMyAdmin-4.8.1-all-languages phpadmin
 
+############################ gitlab ##########################
+# gitlab   https://about.gitlab.com/installation/#ubuntu
+cd /usr/local/bin/
+mkdir gitlab
+cd gitlab/
+apt-get update
+apt-get install -y curl openssh-server ca-certificates
+apt-get install -y postfix
+curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | bash 
+EXTERNAL_URL="http://localhost" apt-get install gitlab-ee 
 
-# gitlab
 # JForg Artifact
 # Disconf
 # jenkins
 # LDAP
 # MongoDB
+
+############################ elastic ##########################
 # elastic
+cd /usr/local/bin
+mkdir elasticsearch
+cd elasticsearch/
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.4.zip
+unzip elasticsearch-6.2.4.zip
+ln -s elasticsearch-6.2.4 elasticsearch
+
+############################ mysql ##########################
 # mysql
 cd /usr/local/bin
 mkdir mysql
